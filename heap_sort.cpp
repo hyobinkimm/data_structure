@@ -2,41 +2,6 @@
 #include <ctime>
 using namespace std;
 
-void max_checkSort(int a[], int n) {
-	bool sorted = true;
-	for (int i = 1; i < n - 1; i++)
-	{
-		if (a[i] > a[i + 1]) {
-			sorted = false;
-		}
-		if (!sorted)break;
-	}
-
-	if (sorted) {
-		cout << "MaxHeap sorting Complete!" << endl;
-	}
-	else {
-		cout << "정렬 오류!!" << endl;
-	}
-}
-void min_checkSort(int a[], int n) {
-	bool sorted = true;
-	for (int i = 1; i < n - 1; i++)
-	{
-		if (a[i] < a[i + 1]) {
-			sorted = false;
-		}
-		if (!sorted)break;
-	}
-
-	if (sorted) {
-		cout << "MinHeap sorting Complete!" << endl;
-	}
-	else {
-		cout << "정렬 오류!!" << endl;
-	}
-}
-
 void max_heapify(int a[], int h, int m) { // 배열 / root / 크기
 	// parent node가 child node보다 커야 하는 maxheap
 	// 결론적으로 내림차순으로 정렬됨
