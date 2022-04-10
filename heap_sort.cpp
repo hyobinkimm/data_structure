@@ -16,7 +16,7 @@ void max_checkSort(int a[], int n) {
 		cout << "MaxHeap sorting Complete!" << endl;
 	}
 	else {
-		cout << "Á¤·Ä ¿À·ù!!" << endl;
+		cout << "ì •ë ¬ ì˜¤ë¥˜!!" << endl;
 	}
 }
 void min_checkSort(int a[], int n) {
@@ -33,28 +33,34 @@ void min_checkSort(int a[], int n) {
 		cout << "MinHeap sorting Complete!" << endl;
 	}
 	else {
-		cout << "Á¤·Ä ¿À·ù!!" << endl;
+		cout << "ì •ë ¬ ì˜¤ë¥˜!!" << endl;
 	}
 }
 
-void max_heapify(int a[], int h, int m) { // ¹è¿­ / root / Å©±â
-	// parent node°¡ child nodeº¸´Ù Ä¿¾ß ÇÏ´Â maxheap
-	// °á·ĞÀûÀ¸·Î ³»¸²Â÷¼øÀ¸·Î Á¤·ÄµÊ
-	int v = a[h]; // ÀÏ´Ü keep
+void max_heapify(int a[], int h, int m) { // ë°°ì—´ / root / í¬ê¸°
+	// parent nodeê°€ child nodeë³´ë‹¤ ì»¤ì•¼ í•˜ëŠ” maxheap
+	// ê²°ë¡ ì ìœ¼ë¡œ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ë¨
+	int v = a[h]; // ì¼ë‹¨ keep
 	int j = 0;
 	for (j = 2 * h; j <= m; j *= 2) {
 		if (j < m && a[j] < a[j + 1]) {
 			j = j + 1; 
 		}
-		// j´Â °ªÀÌ Å« ÀÚ½Ä ³ëµå
-		if (v >= a[j]) break;
-		else a[j / 2] = a[j]; // a[j]¸¦ ºÎ¸ğ ³ëµå·Î ÀÌµ¿(´õ Å©¹Ç·Î)
+		// jëŠ” ê°’ì´ í° ìì‹ ë…¸ë“œ
+		if (v >= a[j]) break; // arr[j]ê°€ vì— í•´ë‹¹í•˜ëŠ” ê°’ë³´ë‹¤ ë” í¼
+		else a[j / 2] = a[j]; // a[j]ë¥¼ ë¶€ëª¨ ë…¸ë“œë¡œ ì´ë™(ë” í¬ë¯€ë¡œ)
 	}
-	a[j / 2] = v; // ¹Ù²ãÁÜ
+	a[j / 2] = v; // ë°”ê¿”ì¤Œ
+	cout << "max_heapify" << endl;
+	for (int i = 1; i <= 10; i++)
+	{
+		cout << a[i] << " ";
+	}
+	cout << endl;
 }
 void min_heapify(int a[], int h, int m) {
-	// parent node°¡ child nodeº¸´Ù ÀÛ¾Æ¾ß ÇÏ´Â minheap
-	// °á·ĞÀûÀ¸·Î ¿À¸§Â÷¼øÀ¸·Î Á¤·ÄµÊ
+	// parent nodeê°€ child nodeë³´ë‹¤ ì‘ì•„ì•¼ í•˜ëŠ” minheap
+	// ê²°ë¡ ì ìœ¼ë¡œ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ë¨
 	int v = a[h];
 	int j = 0;
 	for (j = 2 * h; j <= m; j *= 2) {
@@ -69,10 +75,11 @@ void min_heapify(int a[], int h, int m) {
 
 void max_heap_sort(int a[], int size) {
 	int n = size - 1;
-	// a[0]¸¦ »ç¿ëÇÏÁö ¾Ê±â ¶§¹®¿¡ ¸ğµç i´Â 1±îÁö µ¹¾Æ°¨
+	// a[0]ë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì— ëª¨ë“  iëŠ” 1ê¹Œì§€ ëŒì•„ê°
 
 	for (int i = n / 2; i >= 1; i--) {
-		max_heapify(a, i, n); // maxheap ¼ºÁú¿¡ ¸Â°Ô µ¥ÀÌÅÍ¸¦ ¹Ù²ãÁÜ (ºÎ¸ğ>ÀÚ½Ä)
+		max_heapify(a, i, n); // maxheap ì„±ì§ˆì— ë§ê²Œ ë°ì´í„°ë¥¼ ë°”ê¿”ì¤Œ (ë¶€ëª¨>ìì‹)
+		// ê·¼ë° ì™„ë²½í•˜ê²Œ ë˜ì§„ ì•ŠìŒ. ë§¨ë§ˆì§€ë§‰ì´ ì •ë ¬ ì•ˆë¨.
 	}
 
 	for (int i = 1; i < n; i++)
@@ -80,8 +87,9 @@ void max_heap_sort(int a[], int size) {
 		cout << a[i] << " ";
 	}
 	cout << endl;
-	for (int i = n - 1; i >= 1; i--) { // ¿À¸§Â÷¼ø Á¤·Ä
-		int temp = a[1]; // maxheapÀ¸·Î ÀÎÇØ a[1]ÀÌ °¡Àå Å« ¿ø¼Ò°¡ µÇ¾úÀ½
+	for (int i = n - 1; i >= 1; i--) { // ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
+		// ë§¨ ë§ˆì§€ë§‰ì— ìˆëŠ” ì›ì†Œë¥¼ ë§¨ ìœ„ë¡œ ì˜®ê¸´ ë‹¤ìŒ heapify, ë²”ìœ„ëŠ” (1,10), (1,9), (1,8) ,,, ìˆœìœ¼ë¡œ ì ì  ì •ë ¬ì™„ë£Œ - ë’¤ì—ì„œ ë¶€í„° í° ìˆœì„œëŒ€ë¡œ ì •ë ¬ì´ ëœë‹¤
+		int temp = a[1]; 
 		a[1] = a[i + 1];
 		a[i + 1] = temp;
 		max_heapify(a, 1, i);
@@ -91,160 +99,13 @@ void min_heap_sort(int a[], int size) {
 	int n = size - 1;
 
 	for (int i = n / 2; i >= 1; i--) {
-		min_heapify(a, i, n); // minheap ¼ºÁú¿¡ ¸Â°Ô µ¥ÀÌÅÍ¸¦ ¹Ù²ãÁÜ
+		min_heapify(a, i, n); // minheap ì„±ì§ˆì— ë§ê²Œ ë°ì´í„°ë¥¼ ë°”ê¿”ì¤Œ
 	}
 
-	for (int i = n - 1; i >= 1; i--) { // ³»¸²Â÷¼ø Á¤·Ä
-		int temp = a[1]; // minheapÀ¸·Î ÀÎÇØ a[1]ÀÌ °¡Àå ÀÛÀº ¿ø¼Ò
+	for (int i = n - 1; i >= 1; i--) { // ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
+		int temp = a[1]; // minheapìœ¼ë¡œ ì¸í•´ a[1]ì´ ê°€ì¥ ì‘ì€ ì›ì†Œ
 		a[1] = a[i + 1];
 		a[i + 1] = temp;
 		min_heapify(a, 1, i);
 	}
-}
-
-void printResult(int a[], int n) {
-	
-	for (int j = 1; j < n; j++)
-	{
-		printf("%d ", a[j]);
-	}
-	printf("\n");
-}
-
-int ex1[10001];
-int ex2[50001];
-int ex3[100001];
-int ex4[500001];
-int ex5[1000001];
-
-int main() {
-	// ¹®Á¦ 1
-	int arr[] = {0,6,2,8,1,3,9,4,5,10,7 }; // a[0]´Â ¾²Áö ¾Ê´Â´Ù°í ÇßÀ¸¹Ç·Î 0À¸·Î ¼³Á¤
-
-	max_heap_sort(arr, 10);
-	printf("MaxHeap Á¤·Ä °á°ú\n");
-	printResult(arr, 10);
-	max_checkSort(arr, 10);
-	
-	min_heap_sort(arr, 10);
-	printf("MinHeap Á¤·Ä °á°ú\n");
-	printResult(arr, 10);
-	min_checkSort(arr, 10);
-
-	printf("\n\n");
-
-	/*
-	// ¹®Á¦ 2
-	int n;
-	clock_t start, end;
-	float t;
-	
-	n = 10000;
-	srand((unsigned)time(NULL));
-	for (int i = 1; i < n; i++)
-	{
-		ex1[i] = rand() % 10001;
-	}
-
-	start = clock();
-	max_heap_sort(ex1, 10000);
-	end = clock();
-	max_checkSort(ex1, 10000);
-	t = float(end - start);
-	printf("Maxheap sorting (N=%d) time cost : %f ms\n", n, t);
-
-	start = clock();
-	min_heap_sort(ex1, 10000);
-	end = clock();
-	min_checkSort(ex1, 10000);
-	t = float(end - start);
-	printf("Minheap sorting (N=%d) time cost : %f ms\n\n", n, t);
-
-
-	//
-	n = 50000;
-	srand((unsigned)time(NULL));
-	for (int i = 1; i < n; i++)
-	{
-		ex2[i] = rand() % 50001;
-	}
-	start = clock();
-	max_heap_sort(ex2, 50000);
-	end = clock();
-	max_checkSort(ex2, 50000);
-	t = float(end - start);
-	printf("Maxheap sorting (N=%d) time cost : %f ms\n", n, t);
-
-	start = clock();
-	min_heap_sort(ex2, 50000);
-	end = clock();
-	min_checkSort(ex2, 50000);
-	t = float(end - start);
-	printf("Minheap sorting (N=%d) time cost : %f ms\n\n", n, t);
-
-
-	//
-	n = 100000;
-	srand((unsigned)time(NULL));
-	for (int i = 1; i < n; i++)
-	{
-		ex3[i] = rand() % 100001;
-	}
-	start = clock();
-	max_heap_sort(ex3, 100000);
-	end = clock();
-	max_checkSort(ex3, 100000);
-	t = float(end - start);
-	printf("Maxheap sorting (N=%d) time cost : %f ms\n", n, t);
-
-	start = clock();
-	min_heap_sort(ex3, 100000);
-	end = clock();
-	min_checkSort(ex3, 100000);
-	t = float(end - start);
-	printf("Minheap sorting (N=%d) time cost : %f ms\n\n", n, t);
-
-
-	//
-	n = 500000;
-	srand((unsigned)time(NULL));
-	for (int i = 1; i < n; i++)
-	{
-		ex4[i] = rand() % 500001;
-	}
-	start = clock();
-	max_heap_sort(ex4, 500000);
-	end = clock();
-	max_checkSort(ex4, 500000);
-	t = float(end - start);
-	printf("Maxheap sorting (N=%d) time cost : %f ms\n", n, t);
-
-	start = clock();
-	min_heap_sort(ex4, 500000);
-	end = clock();
-	min_checkSort(ex4, 500000);
-	t = float(end - start);
-	printf("Minheap sorting (N=%d) time cost : %f ms\n\n", n, t);
-
-
-	//
-	n = 1000000;
-	srand((unsigned)time(NULL));
-	for (int i = 1; i < n; i++)
-	{
-		ex5[i] = rand() % 1000001;
-	}
-	start = clock();
-	max_heap_sort(ex5, 1000000);
-	end = clock();
-	max_checkSort(ex5, 1000000);
-	t = float(end - start);
-	printf("Maxheap sorting (N=%d) time cost : %f ms\n", n, t);
-
-	start = clock();
-	min_heap_sort(ex5, 1000000);
-	end = clock();
-	min_checkSort(ex5, 1000000);
-	t = float(end - start);
-	printf("Minheap sorting (N=%d) time cost : %f ms\n\n", n, t);*/
 }
