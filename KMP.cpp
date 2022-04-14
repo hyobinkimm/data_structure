@@ -1,37 +1,42 @@
-#include <iostream>
-#include <string>
-#include <set>
-#include <vector>
+lude <iostream>
 using namespace std;
 
-int next_[50];
+int next_[50]; // ì£¼ì–´ì§„ ë¬¸ìì—´ì˜ 0~iê¹Œì§€ì˜ ë¶€ë¶„ ë¬¸ìì—´ ì¤‘ì—ì„œ prefix==suffixê°€ ë  ìˆ˜ ìˆëŠ” ë¶€ë¶„ ë¬¸ìì—´ ì¤‘ì—ì„œ ê°€ì¥ ê¸´ ê²ƒì˜ ê¸¸ì´
+// prefix==suffix ê°€ ì œì¼ ì¤‘ìš”
 
-void InitNext(const char* p) { // ¹®ÀÚ ¸ÅÄª¿¡ ½ÇÆĞ Á÷Àü »óÈ²¿¡¼­ Á¢µÎ»ç/Á¢¹Ì»ç°¡ ÀÏÄ¡ÇÑ ÃÖ´ë ±æÀÌ
+void InitNext(const char* p) { // ë¬¸ì ë§¤ì¹­ì— ì‹¤íŒ¨ ì§ì „ ìƒí™©ì—ì„œ ì ‘ë‘ì‚¬/ì ‘ë¯¸ì‚¬ê°€ ì¼ì¹˜í•œ ìµœëŒ€ ê¸¸ì´
 	int i, j, M = strlen(p);
 	next_[0] = -1;
 	
 	for (i = 0, j = -1; i < M; i++, j++) {
-		//next_[i] = j;
-		next_[i] = (p[i] == p[j]) ? next_[j] : j;
+		next_[i] = j;
 		while (j >= 0 && p[i] != p[j]) {
 			j = next_[j];
 		}
 	}
+	printf("j : %d\n", j);
+
+	for (int i = 0; i < M; i++) {
+		printf("%d ", next_[i]);
+	}
+	cout << endl;
+
+
 }
 
 
 int KMP(const char* p, const char* t) {
 	int M = strlen(p); int N = strlen(t);
 	int i, j;
-	InitNext(p); // next ¹è¿­ ¼³Á¤ (prefix, suffix)
+	InitNext(p); // next ë°°ì—´ ì„¤ì • (prefix, suffix)
 	
 	for (i = 0, j = 0; i < N && j < M; i++, j++) {
 		while (j >= 0 && t[i] != p[j]) {
-			j = next_[j]; // ±âÁ¸¿¡ ±¸ÇØ³ù´ø ¹è¿­¿¡¼­ °¡Á®¿Í¼­ »ç¿ë
+			j = next_[j]; // ê¸°ì¡´ì— êµ¬í•´ë†¨ë˜ ë°°ì—´ì—ì„œ ê°€ì ¸ì™€ì„œ ì‚¬ìš©
 		}
 	}
 	if (j == M) {
-		return i - M; // index ÀúÀåÇØ¼­ ¹İÈ¯
+		return i - M; // index ì €ì¥í•´ì„œ ë°˜í™˜
 	}
 	else {
 		return i;
@@ -39,8 +44,8 @@ int KMP(const char* p, const char* t) {
 }
 
 int main() {
-	// while¹® ¾È¿¡¼­ KMP µ¹¾Æ¾ßµÊ ÀÎµ¦½º ¿Å°Ü°¡¸é¼­ ,,
-	// ÀÎµ¦½º ³¡³µÀ¸¸é while¹® ºüÁ®³ª¿À°Ô ,,
+	// whileë¬¸ ì•ˆì—ì„œ KMP ëŒì•„ì•¼ë¨ ì¸ë±ìŠ¤ ì˜®ê²¨ê°€ë©´ì„œ ,,
+	// ì¸ë±ìŠ¤ ëë‚¬ìœ¼ë©´ whileë¬¸ ë¹ ì ¸ë‚˜ì˜¤ê²Œ ,,
 
 	const char* text_1 = "ababababcababababcaabbabababcaab";
 	const char* pattern_1 = "abababca";
@@ -50,23 +55,27 @@ int main() {
 	int M = strlen(pattern_1); int N = strlen(text_1);
 	int pos = 0; int index = 0; int previous = 0;
 	cout << text_1 << endl;
+	cout << pattern_1 << endl;
 	while (1) {
 		pos = KMP(pattern_1, text_1 + index);
 		pos += previous;
 		index = pos + M;
-		if (index <= N)printf("ÆĞÅÏÀÌ ¹ß»ıÇÑ À§Ä¡ : %d\n", index - M);
+		if (index <= N)printf("íŒ¨í„´ì´ ë°œìƒí•œ ìœ„ì¹˜ : %d\n", index - M);
 		else break;
 		previous = index;
 	}
 
+	printf("\n");
+
 	M = strlen(pattern_2); N = strlen(text_2);
 	cout << text_2 << endl;
+	cout << pattern_2 << endl;
 	pos = 0; index = 0; previous = 0;
 	while (1) {
 		pos = KMP(pattern_2, text_2 + index);
 		pos += previous;
 		index = pos + M;
-		if (index <= N)printf("ÆĞÅÏÀÌ ¹ß»ıÇÑ À§Ä¡ :%d\n", index - M);
+		if (index <= N)printf("íŒ¨í„´ì´ ë°œìƒí•œ ìœ„ì¹˜ :%d\n", index - M);
 		else break;
 		previous = index;
 	}
